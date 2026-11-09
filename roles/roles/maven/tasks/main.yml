@@ -1,0 +1,34 @@
+---
+- name: Install dependecies
+  apt:
+    name:
+      - maven
+      - git
+      - python
+    state: present
+
+- name: Clean build dir
+  file:
+    path: /opt/edu_ansible
+    state: absent
+
+- name: Create build dir
+  file:
+    path: /opt/edu_ansible
+    state: directory
+
+- name: Clone repo
+  git:
+    repo: https://github.com/sivajavatechie/JenkinsWar
+    dest: /opt/edu_ansible
+
+- name: Build WAR
+  shell: |
+    cd /opt/edu_ansible
+    mvn package -DskipTests
+
+- name: copy war file to main
+  fetch:
+    src: "/opt/edu_ansible/target/JenkinsWar.war"
+    dest: /tmp/JenkinsWar.war
+    flat: yes

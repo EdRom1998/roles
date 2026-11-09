@@ -1,0 +1,19 @@
+---
+- name: Install Tomcat
+  apt:
+    name: tomcat9
+    state: present
+
+- name: Ensure Tomcat is started and enabled
+  service:
+    name: tomcat9
+    state: started
+    enabled: yes
+
+- name: Copy WAR to webapps
+  copy:
+    src: /tmp/JenkinsWar.war
+    dest: /var/lib/tomcat9/webapps/JenkinsWar.war
+    owner: tomcat
+    group: tomcat
+  notify: restart tomcat
