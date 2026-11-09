@@ -10,10 +10,3 @@
     state: started
     enabled: yes
 
-- name: Copy WAR to webapps
-  copy:
-    src: /tmp/JenkinsWar.war
-    dest: /var/lib/tomcat9/webapps/JenkinsWar.war
-    owner: tomcat
-    group: tomcat
-  notify: restart tomcat

@@ -27,8 +27,9 @@
     cd /opt/edu_ansible
     mvn package -DskipTests
 
-- name: copy war file to main
-  fetch:
-    src: "/opt/edu_ansible/target/JenkinsWar.war"
-    dest: /tmp/JenkinsWar.war
-    flat: yes
+- name: Sync WAR directly from maven to tomcat
+  synchronize:
+    src: /opt/edu_ansible/target/JenkinsWar.war
+    dest: /var/lib/tomcat9/webapps/JenkinsWar.war
+    mode: push
+  delegate_to: maven
