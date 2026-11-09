@@ -26,10 +26,3 @@
   shell: |
     cd /opt/edu_ansible
     mvn package -DskipTests
-
-- name: Sync WAR directly from maven to tomcat
-  synchronize:
-    src: /opt/edu_ansible/target/JenkinsWar.war
-    dest: /var/lib/tomcat9/webapps/JenkinsWar.war
-    mode: push
-  delegate_to: maven
