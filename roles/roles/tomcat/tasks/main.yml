@@ -15,5 +15,8 @@
     src: /opt/edu_ansible/target/JenkinsWar.war
     dest: /var/lib/tomcat9/webapps/JenkinsWar.war
     mode: push
+    private_key: /home/adm2/.ssh/id_rsa
+    rsync_opts:
+      - "--rsh=ssh -i /home/adm2/.ssh/id_rsa -l adm3 -o StrictHostKeyChecking=no"
   delegate_to: maven
   notify: restart tomcat
